@@ -2,20 +2,21 @@ import React from "react"
 import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
+import prisma from '../lib/prisma';
+import { PrismaClient } from "@prisma/client";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const feed = [
-    {
-      id: 1,
-      title: "Prisma is the perfect ORM for Next.js",
-      content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
-      published: false,
+  const prisma = new PrismaClient()  
+  const feed = await prisma.post.findMany({
+    where: { published: true },
+    include: {
       author: {
-        name: "Nikolas Burk",
-        email: "burk@prisma.io",
+        select: { name: true,
+         },
       },
     },
-  ]
+  });
+  
   return { props: { feed } }
 }
 
@@ -27,7 +28,7 @@ const Blog: React.FC<Props> = (props) => {
   return (
     <Layout>
       <div className="page">
-        <h1>Public Feed</h1>
+        <h1>Southern Woodland Lumber LLC</h1>
         <main>
           {props.feed.map((post) => (
             <div key={post.id} className="post">
@@ -55,3 +56,32 @@ const Blog: React.FC<Props> = (props) => {
 }
 
 export default Blog
+
+
+
+
+
+// ----------------------------------------------------------
+
+// const feed = [
+  //   {
+  //     id: 1,
+  //     title: "Prisma is the perfect ORM for Next.js",
+  //     content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
+  //     published: false,
+  //     author: {
+  //       name: "Robert Glover",
+  //       email: "burk@prisma.io",
+  //     },
+  //   },
+  //   {
+  //     id: 1,
+  //     title: "Prisma for better perfomance",
+  //     content: "[Prisma](https://github.com/prisma/prisma) and Next.js go _great_ together!",
+  //     published: false,
+  //     author: {
+  //       name: "Nikolas Burk",
+  //       email: "burk@prisma.io",
+  //     },
+  //   },
+  // ]
