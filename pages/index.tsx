@@ -3,7 +3,7 @@ import { GetStaticProps } from "next"
 import Layout from "../components/Layout"
 import Post, { PostProps } from "../components/Post"
 import prisma from '../lib/prisma';
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 
 export const getStaticProps: GetStaticProps = async () => {
   const prisma = new PrismaClient()  
