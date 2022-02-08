@@ -946,7 +946,7 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
-"react-markdown@8.0.0":
+"react-markdown@^8.0.0":
   "integrity" "sha512-qbrWpLny6Ef2xHqnYqtot948LXP+4FtC+MWIuaN1kvSnowM+r1qEeEHpSaU0TDBOisQuj+Qe6eFY15cNL3gLAw=="
   "resolved" "https://registry.npmjs.org/react-markdown/-/react-markdown-8.0.0.tgz"
   "version" "8.0.0"
