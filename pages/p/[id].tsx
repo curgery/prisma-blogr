@@ -35,12 +35,12 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   //   },
   // }
 
-  async function publishPost(id: number): Promise<void> {
-    await fetch(`/api/publish/${id}`, {
-      method: 'PUT',
-    });
-    await Router.push('/');
-  }
+async function publishPost(id: number): Promise<void> {
+  await fetch(`/api/publish/${id}`, {
+    method: 'PUT',
+  });
+  await Router.push('/');
+}
 
 
   // pages/p/[id].tsx
@@ -74,7 +74,7 @@ const Post: React.FC<PostProps> = (props) => {
       <div>
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown children={props.content} />
+        <ReactMarkdown children={props.content}  />
         {
         !props.published && userHasValidSession && postBelongsToUser && (
           <button onClick={() => publishPost(props.id)}>Publish</button>
@@ -82,7 +82,7 @@ const Post: React.FC<PostProps> = (props) => {
         {
           userHasValidSession && postBelongsToUser && (
             <button onClick={() => deletePost(props.id)}>Delete</button>
-          )}
+          )}         
       </div>
       <style jsx>{`
         .page {
