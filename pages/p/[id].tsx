@@ -7,6 +7,8 @@ import { PostProps } from "../../components/Post"
 import { useSession } from "next-auth/react";
 import prisma from '../../lib/prisma';
 
+
+
 // const router = useRouter();
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const post = await prisma.post.findUnique({
@@ -75,14 +77,16 @@ const Post: React.FC<PostProps> = (props) => {
         <h2>{title}</h2>
         <p>By {props?.author?.name || "Unknown author"}</p>
         <ReactMarkdown children={props.content}  />
-        {
-        !props.published && userHasValidSession && postBelongsToUser && (
-          <button onClick={() => publishPost(props.id)}>Publish</button>
-          )}
-        {
-          userHasValidSession && postBelongsToUser && (
-            <button onClick={() => deletePost(props.id)}>Delete</button>
-          )}         
+          <div>
+            { !props.published && userHasValidSession && postBelongsToUser && (
+            <button onClick={() => publishPost(props.id)}>Publish</button>
+            )}
+          {
+            userHasValidSession && postBelongsToUser && (
+              <button onClick={() => deletePost(props.id)}>Delete</button>
+            )}
+            </div>
+           
       </div>
       <style jsx>{`
         .page {
@@ -108,5 +112,7 @@ const Post: React.FC<PostProps> = (props) => {
     </Layout>
   )
 }
+
+
 
 export default Post
